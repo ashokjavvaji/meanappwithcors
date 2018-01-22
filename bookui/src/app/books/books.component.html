@@ -1,0 +1,74 @@
+<div class='panel panel-primary'>
+  <div class='panel-heading'>
+    {{title}}
+  </div>
+  <div class='panel-body'>
+    <div class='row'>
+      <div class="col-md-1 text-right">Filter by:</div>
+      <div class='col-md-2'>
+        <input type="text" [(ngModel)]='nameFilter'/>
+      </div>
+    </div>
+    <table class='table table-striped table-sm table-bordered' *ngIf='books && books.length; else noBooksToShow'>
+      <thead>
+        <tr class="table-info">
+          <th>Title</th>
+          <th>Author</th>
+          <th>Price</th>
+          <th>Genre</th>
+          <th>Format</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let book of books | bookFilter: nameFilter'>
+          <!-- <td><a [routerLink]='book.id'>{{book.title}}</a></td> -->
+          <td><a href="#" data-toggle="modal" data-target="#bookModal" (click)="showDetails(book._id)">{{book.title}}</a></td>
+          <td>{{book.author}}</td>
+          <td>$ {{book.price}}</td>
+          <td>{{book.genre}}</td>
+          <td>{{book.format}}</td>
+          <td><a [routerLink]="['/edit', book._id]" class="btn btn-xs btn-primary">Edit</a>
+          <a (click) ="deleteBook(book._id)" class="btn btn-xs btn-primary">Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <a routerLink='/add' class="btn btn-xs btn-primary">Add Books</a>
+
+  </div>
+</div>
+<ng-template #noBooksToShow>No Books available. Click on 'Add Books' button to populate data.<br/></ng-template>
+
+<!-- Display Book details in a modal box -->
+<div class="modal" tabindex="-1" role="dialog" id="bookModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">{{book.title}} Details</h3>
+      </div>
+      <div class="modal-body">
+        <dl class="row">
+          <dt class="col-sm-4 text-right">Author:</dt>
+          <dd class="col-sm-8">{{book.author}}</dd>
+          <dt class="col-sm-4 text-right">Publisher:</dt>
+          <dd class="col-sm-8">{{book.publisher}}</dd>
+          <dt class="col-sm-4 text-right">Published On:</dt>
+          <dd class="col-sm-8">{{book.publicationDate}}</dd>
+          <dt class="col-sm-4 text-right">Price:</dt>
+          <dd class="col-sm-8">$ {{book.price}}</dd>
+          <dt class="col-sm-4 text-right">Genre:</dt>
+          <dd class="col-sm-8">{{book.genre}}</dd>
+          <dt class="col-sm-4 text-right">Format:</dt>
+          <dd class="col-sm-8">{{book.format}}</dd>
+          <dt class="col-sm-4 text-right">ISBN:</dt>
+          <dd class="col-sm-8">{{book.isbn}}</dd>
+        </dl>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="openModal" #openModal [hidden]="true" data-toggle="modal" data-target="#bookModal"></button>

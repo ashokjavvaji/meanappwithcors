@@ -1,0 +1,56 @@
+<div class="container justify-content-center colxs-4">
+  <h3>Edit Book</h3>
+  <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)" *ngIf="book">
+    <div class="form-group">
+      <label for="title">Title: </label>
+      <input type="text" class="form-control" id="title" name="title" [(ngModel)]="book.title" required minlength="3" #titleRef="ngModel"/>
+      <div *ngIf="titleRef.invalid && (titleRef.dirty || titleRef.touched)" class="alert alert-danger">
+        <div *ngIf="titleRef.errors.required">
+          Title is required.
+        </div>
+        <div *ngIf="titleRef.errors.minlength">
+          Title must be atleast 3 characters long.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="author">Author: </label>
+      <input type="text" class="form-control" id="author" name="author" [(ngModel)]="book.author" required #authorRef="ngModel"/>
+      <div *ngIf="authorRef.invalid && (authorRef.dirty || authorRef.touched)" class="alert alert-danger">
+        <div *ngIf="authorRef.errors.required">
+          Author name is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="isbn">ISBN: </label>
+      <input type="text" class="form-control" id="isbn" name="isbn" [(ngModel)]="book.isbn"/>
+    </div>
+    <div class="form-group">
+      <label for="publicationDate">Publication Date: </label>
+      <input type="date" class="form-control" id="publicationDate" name="publicationDate" [(ngModel)]="book.publicationDate"/>
+    </div>
+    <div class="form-group">
+      <label for="publisher">Publisher: </label>
+      <input type="text" class="form-control" id="publisher" name="publisher" [(ngModel)]="book.publisher"/>
+    </div>
+    <div class="form-group">
+      <label for="price">Price: </label>
+      <input type="number" class="form-control" id="price" name="price" [(ngModel)]="book.price"/>
+    </div>
+    <div class="form-group" *ngIf="genres">
+      <label for="genre">Genre: </label>
+      <select class="form-control" name="genre" [ngModel]="book.genre">
+        <option *ngFor="let genre of genres" [value]="genre">{{genre}}</option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="formats">
+      <label for="format">Format: </label>
+      <select class="form-control" name="format" [ngModel]="book.format">
+        <option *ngFor="let format of formats" [value]="format">{{format}}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]='formRef.invalid'>Update</button>
+  </form>
+</div>

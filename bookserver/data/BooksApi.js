@@ -86,8 +86,10 @@ var BooksApi = {
             db.db('books').collection('books')
                 .find().sort({'_id':-1}).toArray()
                 .then((value) => {
-                    count = value[0]._id;
-                    console.log("Max Book ID: "+value[0]._id);
+		    if(value[0] !== undefined) {
+                        count = value[0]._id;
+                        console.log("Max Book ID: "+value[0]._id);
+		    }
                     count++;
                     //save the book
                     book._id = count;

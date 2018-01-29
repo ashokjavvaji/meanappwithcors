@@ -40,13 +40,13 @@
     </div>
     <div class="form-group" *ngIf="genres">
       <label for="genre">Genre: </label>
-      <select class="form-control" name="genre" [ngModel]="book.genre">
+      <select class="form-control" name="genre" [(ngModel)]="book.genre">
         <option *ngFor="let genre of genres" [value]="genre">{{genre}}</option>
       </select>
     </div>
     <div class="form-group" *ngIf="formats">
       <label for="format">Format: </label>
-      <select class="form-control" name="format" [ngModel]="book.format">
+      <select class="form-control" name="format" [(ngModel)]="book.format">
         <option *ngFor="let format of formats" [value]="format">{{format}}</option>
       </select>
     </div>
